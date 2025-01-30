@@ -1,7 +1,7 @@
 <div class="gallery">
-  {{ range .Page.Resources.ByType "image" }}
-    <a href="{{ .RelPermalink }}" class="gallery-item">
-      <img src="{{ .RelPermalink }}" alt="{{ .Name }}" loading="lazy">
-    </a>
-  {{ end }}
+    {{ range .Page.Resources.ByType "image" }}
+        <div class="gallery-item">
+            <img src="{{ .RelPermalink }}" alt="{{ .Name }}" loading="lazy">
+        </div>
+    {{ end }}
 </div>

@@ -1,0 +1,18 @@
+{{ define "main" }}
+    <div class="category-container">
+        <h1>{{ .Title }}</h1>
+        <div class="albums-grid">
+            {{ range .Pages }}
+                <div class="album-card">
+                    <a href="{{ .RelPermalink }}">
+                        {{ $cover := .Resources.ByType "image" | first 1 }}
+                        {{ range $cover }}
+                            <img src="{{ .RelPermalink }}" alt="{{ .Name }}" loading="lazy">
+                        {{ end }}
+                        <h2>{{ .Title }}</h2>
+                    </a>
+                </div>
+            {{ end }}
+        </div>
+    </div>
+{{ end }}
