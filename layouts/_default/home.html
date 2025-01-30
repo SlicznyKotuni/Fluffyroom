@@ -1,0 +1,22 @@
+{{ define "main" }}
+  <div class="home-container">
+    {{ range where .Site.Sections "Section" "in" (slice "kotuni" "fluffyroom") }}
+      <section class="category">
+        <h2>{{ .Title }}</h2>
+        <div class="slideshow" data-category="{{ .Section }}">
+          {{ range first 10 (where .Pages "Kind" "section") }}
+            {{ $images := .Resources.ByType "image" }}
+            {{ range $index, $img := $images }}
+              <img 
+                src="{{ $img.RelPermalink }}" 
+                alt="{{ .Name }}" 
+                class="slide {{ if eq $index 0 }}active{{ end }}"
+                loading="lazy"
+              >
+            {{ end }}
+          {{ end }}
+        </div>
+      </section>
+    {{ end }}
+  </div>
+{{ end }}

@@ -1,6 +1,6 @@
 <div class="gallery">
   {{ range .Page.Resources.ByType "image" }}
-    <a href="{{ .RelPermalink }}" class="gallery-item" data-lightbox="roadtrip">
+    <a href="{{ .RelPermalink }}" class="gallery-item">
       <img src="{{ .RelPermalink }}" alt="{{ .Name }}" loading="lazy">
     </a>
   {{ end }}

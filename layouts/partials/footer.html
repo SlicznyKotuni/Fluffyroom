@@ -2,8 +2,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lightgallery.min.css">
 
 <script>
+  // Inicjalizacja Lightbox dla galerii
   document.addEventListener('DOMContentLoaded', () => {
-    const gallery = lightGallery(document.querySelector('.gallery'), {
+    lightGallery(document.querySelector('.gallery'), {
       selector: '.gallery-item',
       download: false,
       thumbnail: true
