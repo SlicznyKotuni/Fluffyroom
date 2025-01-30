@@ -7,7 +7,7 @@
                     {{ $images := shuffle (readDir (printf "content/%s/images" .Section)) }}
                     {{ range first 5 $images }}
                         <img 
-                            src="/{{ .Section }}/images/{{ .Name }}" 
+                            src="/{{ $.Section }}/images/{{ .Name }}" 
                             alt="{{ .Name | replaceRE "-" " " | title }}"
                             class="slide"
                             loading="lazy"
