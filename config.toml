@@ -6,6 +6,10 @@ theme = "hugo-theme-codex"  # Jeśli używasz motywu
 [params]
   description = "Fluffyroom for Sliczny Kotuni."
 
+[module]
+  [[module.mounts]]
+    source = "static"
+    target = "static"
+
 [outputs]
-  home = ["HTML", "RSS"]
-  section = ["HTML"]
+  home = ["HTML"]
