@@ -2,14 +2,14 @@
   <div class="category-page">
     <h1>{{ .Title }}</h1>
     <div class="albums-grid">
-      {{ range .Pages }}
-        <a href="{{ .RelPermalink }}" class="album-card">
-          {{ $cover := .Resources.ByType "image" | first 1 }}
-          {{ with $cover }}
-            <img src="{{ .RelPermalink }}" alt="{{ .Name }}" loading="lazy">
-          {{ end }}
-          <h2>{{ .Title }}</h2>
-        </a>
+      {{ $section := .Section }}
+      {{ $contentPath := printf "content/%s/images/*" $section }}
+      {{ $images := readDir (printf "content/%s/images" $section) }}
+      {{ range $images }}
+        <div class="album-card">
+          <img src="/{{ $section }}/images/{{ .Name }}" alt="{{ .Name }}" loading="lazy">
+          <h2>{{ .Name | replaceRE "\\..*$" "" | humanize }}</h2>
+        </div>
       {{ end }}
     </div>
   </div>
