@@ -1,7 +1,6 @@
 baseURL = "https://fluffyroom.on-fleek.app/"
 languageCode = "pl"
 title = "Fluffyroom of Kotuni"
-theme = "hugo-theme-codex"  # Jeśli używasz motywu
 
 [params]
   description = "Fluffyroom for Sliczny Kotuni."
