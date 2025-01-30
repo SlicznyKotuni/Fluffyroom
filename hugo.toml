@@ -6,12 +6,6 @@ theme = "hugo-theme-codex"
 [params]
   description = "Profesjonalne kocie zdjęcia."\
 
-[outputFormats]
-    [outputFormats.HTML]
-        mediaType = "text/html"
-        isPlainText = false
-        notAlternative = true
-
 [outputs]
-    home = ["HTML"]
-    page = ["HTML"]
+  home = ["HTML", "RSS"]
+  section = ["HTML"]
