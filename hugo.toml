@@ -1,0 +1,7 @@
+baseURL = "https://slicznykotunifluffyroom.fleek.site/"
+languageCode = "pl"
+title = "Śliczny Kotuni - Fluffyroom"
+theme = "hugo-theme-codex"
+
+[params]
+  description = "Profesjonalne kocei zdjęcia."

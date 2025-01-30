@@ -1,0 +1,12 @@
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/lightgallery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lightgallery.min.css">
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const gallery = lightGallery(document.querySelector('.gallery'), {
+      selector: '.gallery-item',
+      download: false,
+      thumbnail: true
+    });
+  });
+</script>
