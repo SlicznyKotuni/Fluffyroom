@@ -2,11 +2,46 @@
 .navbar {
     position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
     background: rgba(255, 255, 255, 0.95);
     padding: 1rem;
     z-index: 1000;
-    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.navbar li {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #666;
+}
+
+/* Dostosowanie marginesu głównego kontenera */
+.home-container {
+    padding-top: 80px; /* Zwiększamy padding-top żeby treść nie chowała się pod nawigacją */
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 /* Kontener strony głównej */
