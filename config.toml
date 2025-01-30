@@ -12,3 +12,23 @@ title = "Fluffyroom of Kotuni"
 
 [outputs]
   home = ["HTML"]
+
+[[menu.main]]
+name = "Strona główna"
+url = "/"
+weight = 1
+
+[[menu.main]]
+name = "Fluffyroom"
+url = "/fluffyroom/"
+weight = 2
+
+[[menu.main]]
+name = "Kotuni"
+url = "/kotuni/"
+weight = 3
+
+[[menu.main]]
+name = "O nas"
+url = "/about/"
+weight = 4
