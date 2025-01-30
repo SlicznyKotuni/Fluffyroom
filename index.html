@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Fotograficzne</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!-- Pasek nawigacyjny -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/kotuni/">Kotuni</a></li>
+            <li><a href="/fluffyroom/">Fluffyroom</a></li>
+            <li><a href="/about/">About</a></li>
+        </ul>
+    </nav>
+
+    <!-- Sekcja główna -->
+    <main class="home-container">
+        <!-- Sekcja Kotuni -->
+        <section class="category-section">
+            <h2>Kotuni</h2>
+            <div class="slideshow" id="kotuni-slideshow">
+                {{ range $index, $img := (readDir "content/kotuni/images") }}
+                <img 
+                    src="/kotuni/images/{{ $img.Name }}" 
+                    alt="{{ replace $img.Name "-" " " | title }}"
+                    class="slide{{ if eq $index 0 }} active{{ end }}"
+                    loading="lazy"
+                >
+                {{ end }}
+            </div>
+        </section>
+
+        <!-- Sekcja Fluffyroom -->
+        <section class="category-section">
+            <h2>Fluffyroom</h2>
+            <div class="slideshow" id="fluffyroom-slideshow">
+                {{ range $index, $img := (readDir "content/fluffyroom/images") }}
+                <img 
+                    src="/fluffyroom/images/{{ $img.Name }}" 
+                    alt="{{ replace $img.Name "-" " " | title }}"
+                    class="slide{{ if eq $index 0 }} active{{ end }}"
+                    loading="lazy"
+                >
+                {{ end }}
+            </div>
+        </section>
+    </main>
+
+    <!-- Skrypty i galeria -->
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/lightgallery.min.js"></script>
+    <script src="/js/scripts.js"></script>
+</body>
+</html>
