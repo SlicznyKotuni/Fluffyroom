@@ -170,3 +170,21 @@
     font-size: 1.1rem;
     color: #333;
 }
+.taxonomy-list, .regular-list {
+  padding: 2rem;
+}
+
+.taxonomy-item, .list-item {
+  margin: 1rem 0;
+}
+
+.taxonomy-item a, .list-item a {
+  color: #333;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+.taxonomy-item a:hover, .list-item a:hover {
+  color: #666;
+  text-decoration: underline;
+}
