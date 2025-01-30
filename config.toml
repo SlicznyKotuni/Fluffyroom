@@ -1,0 +1,7 @@
+baseURL = "https://fluffyroom.fleek.site/"
+languageCode = "pl"
+title = "Fluffyroom of Kotuni"
+theme = "hugo-theme-codex"  # Jeśli używasz motywu
+
+[params]
+  description = "Fluffyroom for Sliczny Kotuni."
