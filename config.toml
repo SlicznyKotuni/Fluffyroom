@@ -5,3 +5,13 @@ theme = "hugo-theme-codex"  # Jeśli używasz motywu
 
 [params]
   description = "Fluffyroom for Sliczny Kotuni."
+
+[outputFormats]
+    [outputFormats.HTML]
+        mediaType = "text/html"
+        isPlainText = false
+        notAlternative = true
+
+[outputs]
+    home = ["HTML"]
+    page = ["HTML"]

@@ -4,4 +4,14 @@ title = "Śliczny Kotuni - Fluffyroom"
 theme = "hugo-theme-codex"
 
 [params]
-  description = "Profesjonalne kocie zdjęcia."
+  description = "Profesjonalne kocie zdjęcia."\
+
+[outputFormats]
+    [outputFormats.HTML]
+        mediaType = "text/html"
+        isPlainText = false
+        notAlternative = true
+
+[outputs]
+    home = ["HTML"]
+    page = ["HTML"]
