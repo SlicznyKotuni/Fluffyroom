@@ -76,26 +76,29 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     });
 
-    // Inicjalizacja lightgallery dla galerii zdjęć
-     const galleries = document.querySelectorAll('.gallery:not(.slideshow)');
-    if (typeof lightGallery !== 'undefined') {
-        galleries.forEach(gallery => {
-            // Sprawdź, czy galeria nie została już zainicjalizowana
-            if (!gallery.classList.contains('lg-initialized')) {
-                lightGallery(gallery, {
-                    selector: '.gallery-item',
-                    plugins: [lgZoom, lgThumbnail],
-                    speed: 500,
-                    download: false,
-                    thumbnail: true,
-                    animateThumb: true,
-                    zoomFromOrigin: true,
-                    allowMediaOverlap: true,
-                    toggleThumb: true
-                });
-                // Oznacz galerię jako zainicjalizowaną
-                gallery.classList.add('lg-initialized');
-            }
+  const galleries = document.querySelectorAll('.gallery:not(.slideshow)');
+if (typeof lightGallery !== 'undefined') {
+    galleries.forEach(gallery => {
+        // Najpierw zniszcz istniejącą instancję, jeśli istnieje
+        if (gallery.lgInstance) {
+            gallery.lgInstance.destroy();
+        }
+        
+        // Inicjalizuj nową instancję
+        const lgInstance = lightGallery(gallery, {
+            selector: '.gallery-item',
+            plugins: [lgZoom, lgThumbnail],
+            speed: 500,
+            download: false,
+            thumbnail: true,
+            animateThumb: true,
+            zoomFromOrigin: true,
+            allowMediaOverlap: true,
+            toggleThumb: true
         });
-    }
+        
+        // Zapisz referencję do instancji
+        gallery.lgInstance = lgInstance;
+    });
+}
 });

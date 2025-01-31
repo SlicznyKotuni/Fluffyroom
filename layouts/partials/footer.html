@@ -14,11 +14,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Znajdujemy wszystkie kontenery galerii
     const galleries = document.querySelectorAll('.gallery:not(.slideshow)');
-    
+
     // Usuwamy wszystkie istniejące instancje lightGallery
     galleries.forEach(gallery => {
-        if (gallery.hasOwnProperty('lgInstance')) {
-            gallery.lgInstance.destroy();
+        if (gallery.lgInstance) {
+            gallery.lgInstance.destroy(true); // Upewnij się, że instancja jest poprawnie zniszczona
         }
     });
 
