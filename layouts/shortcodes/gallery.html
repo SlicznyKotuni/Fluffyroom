@@ -2,8 +2,7 @@
     {{ range .Page.Resources.ByType "image" }}
         <a class="gallery-item" 
            href="{{ .RelPermalink }}"
-           data-src="{{ .RelPermalink }}"
-           data-sub-html="<h4>{{ .Name }}</h4>">
+           data-src="{{ .RelPermalink }}">
             <img src="{{ .RelPermalink }}" 
                  alt="{{ .Name }}"
                  loading="lazy">

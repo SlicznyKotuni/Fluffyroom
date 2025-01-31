@@ -1,92 +1,62 @@
-<!-- LightGallery CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-zoom.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-thumbnail.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lg-fullscreen.min.css">
-
-<!-- jQuery (wymagany dla niektórych funkcji lightGallery) -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<!-- LightGallery CSS - tylko jeden zestaw styli -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery-bundle.min.css">
 
 <!-- LightGallery i pluginy -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/zoom/lg-zoom.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/fullscreen/lg-fullscreen.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/hash/lg-hash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/rotate/lg-rotate.min.js"></script>
 
 <!-- Własne skrypty -->
 <script src="{{ "js/scripts.js" | relURL }}"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    // Inicjalizacja lightGallery dla wszystkich galerii
+    // Znajdujemy wszystkie kontenery galerii
     const galleries = document.querySelectorAll('.gallery:not(.slideshow)');
     
-    if (galleries.length > 0) {
-        galleries.forEach(gallery => {
-            lightGallery(gallery, {
-                // Pluginy
-                plugins: [lgZoom, lgThumbnail, lgFullscreen, lgHash, lgRotate],
-                
-                // Podstawowa konfiguracja
+    // Usuwamy wszystkie istniejące instancje lightGallery
+    galleries.forEach(gallery => {
+        if (gallery.hasOwnProperty('lgInstance')) {
+            gallery.lgInstance.destroy();
+        }
+    });
+
+    // Inicjalizujemy lightGallery tylko raz dla każdej galerii
+    galleries.forEach(gallery => {
+        if (!gallery.hasAttribute('data-lightgallery-initialized')) {
+            const lgInstance = lightGallery(gallery, {
+                plugins: [lgZoom, lgThumbnail, lgFullscreen],
+                selector: '.gallery-item',
                 speed: 500,
                 download: false,
-                counter: true,
-                mousewheel: true,
-                closeOnTap: true,
-                loop: true,
-                
-                // Ustawienia miniaturek
                 thumbnail: true,
-                animateThumb: true,
-                showThumbByDefault: true,
                 thumbWidth: 100,
                 thumbHeight: 80,
                 thumbMargin: 5,
-                
-                // Ustawienia zoom
+                hideScrollbar: true,
+                closable: true,
+                loop: true,
+                counter: true,
+                escKey: true,
+                mousewheel: true,
                 zoom: {
                     maxRatio: 3,
                     minRatio: 1,
                     scale: 1
                 },
-                
-                // Ustawienia obrazów
-                preload: 3,
-                hideControlOnEnd: false,
-                getCaptionFromTitleOrAlt: true,
-                
-                // Ustawienia mobilne
                 mobileSettings: {
                     controls: true,
                     showCloseIcon: true,
-                    download: false,
-                    rotate: false
-                },
-                
-                // Selektory
-                selector: '.gallery-item',
-                
-                // Animacje
-                mode: 'lg-fade',
-                
-                // Nawigacja
-                keyPress: true,
-                enableDrag: true,
-                enableSwipe: true,
-                
-                // Wygląd
-                backdropDuration: 400,
-                startAnimationDuration: 400,
-                hideControlOnEnd: false,
-                
-                // Dostępność
-                escKey: true,
-                arrowKeys: true
+                    download: false
+                }
             });
-        });
-    }
+            
+            // Oznaczamy galerię jako zainicjalizowaną
+            gallery.setAttribute('data-lightgallery-initialized', 'true');
+            gallery.lgInstance = lgInstance;
+        }
+    });
 });
 </script>
 
