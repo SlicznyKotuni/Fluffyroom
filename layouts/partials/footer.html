@@ -5,7 +5,8 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    const galleries = document.querySelectorAll('.gallery');
+    // Inicjalizuj lightgallery tylko dla galerii, nie dla slideshow
+    const galleries = document.querySelectorAll('.gallery:not(.slideshow)');
     galleries.forEach(gallery => {
         lightGallery(gallery, {
             selector: '.gallery-item',
