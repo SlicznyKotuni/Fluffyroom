@@ -1,12 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Obsługa slideshow
+    // ===== SLIDESHOW SECTION =====
     const slideshows = document.querySelectorAll('.slideshow');
     
     slideshows.forEach(slideshow => {
         const slides = slideshow.querySelectorAll('.slide');
         let currentSlide = 0;
         
-        // Funkcja do losowego wyboru efektu
         const getRandomEffect = () => {
             const effects = [
                 {
@@ -33,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return effects[Math.floor(Math.random() * effects.length)];
         };
 
-        // Funkcja do losowego wyboru zdjęcia
         const getRandomSlide = (excludeIndex) => {
             let newIndex;
             do {
@@ -42,13 +40,11 @@ document.addEventListener('DOMContentLoaded', function() {
             return newIndex;
         };
 
-        // Pokazuj pierwsze losowe zdjęcie na start
         if (slides.length > 0) {
             currentSlide = getRandomSlide(-1);
             slides[currentSlide].classList.add('active');
         }
 
-        // Dodaj obsługę efektów hover dla każdego slajdu
         slides.forEach(slide => {
             slide.addEventListener('mouseenter', () => {
                 if (slide.classList.contains('active')) {
@@ -65,7 +61,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Zmiana slajdów co 5 sekund z losowym wyborem
         setInterval(() => {
             slides[currentSlide].classList.remove('active');
             slides[currentSlide].style.transform = 'translateX(-50%)';
@@ -76,29 +71,61 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     });
 
-  const galleries = document.querySelectorAll('.gallery:not(.slideshow)');
-if (typeof lightGallery !== 'undefined') {
-    galleries.forEach(gallery => {
-        // Najpierw zniszcz istniejącą instancję, jeśli istnieje
-        if (gallery.lgInstance) {
-            gallery.lgInstance.destroy();
+    // ===== LIGHTGALLERY SECTION =====
+    let galleryInstances = new Map();
+
+    const initializeGallery = (gallery) => {
+        // Zniszcz istniejącą instancję, jeśli istnieje
+        if (galleryInstances.has(gallery)) {
+            galleryInstances.get(gallery).destroy();
+            galleryInstances.delete(gallery);
         }
-        
-        // Inicjalizuj nową instancję
-        const lgInstance = lightGallery(gallery, {
-            selector: '.gallery-item',
-            plugins: [lgZoom, lgThumbnail],
-            speed: 500,
-            download: false,
-            thumbnail: true,
-            animateThumb: true,
-            zoomFromOrigin: true,
-            allowMediaOverlap: true,
-            toggleThumb: true
-        });
-        
-        // Zapisz referencję do instancji
-        gallery.lgInstance = lgInstance;
+
+        // Stwórz nową instancję
+        if (typeof lightGallery !== 'undefined') {
+            const instance = lightGallery(gallery, {
+                selector: '.gallery-item',
+                plugins: [lgZoom, lgThumbnail],
+                speed: 500,
+                download: false,
+                thumbnail: true,
+                animateThumb: true,
+                zoomFromOrigin: true,
+                allowMediaOverlap: true,
+                toggleThumb: true,
+                closeOnTap: true,
+                hideBarsDelay: 3000,
+                addClass: 'lg-custom-gallery',
+                counter: false,
+                mousewheel: true
+            });
+
+            // Zapisz instancję w Map
+            galleryInstances.set(gallery, instance);
+
+            // Dodaj listener na zamknięcie
+            gallery.addEventListener('lgAfterClose', () => {
+                if (galleryInstances.has(gallery)) {
+                    galleryInstances.get(gallery).destroy();
+                    galleryInstances.delete(gallery);
+                    // Reinicjalizuj po krótkim opóźnieniu
+                    setTimeout(() => initializeGallery(gallery), 100);
+                }
+            });
+        }
+    };
+
+    // Inicjalizacja wszystkich galerii
+    const galleries = document.querySelectorAll('.gallery:not(.slideshow)');
+    galleries.forEach(gallery => {
+        initializeGallery(gallery);
     });
-}
+
+    // Cleanup przy zamknięciu strony
+    window.addEventListener('beforeunload', () => {
+        galleryInstances.forEach((instance) => {
+            instance.destroy();
+        });
+        galleryInstances.clear();
+    });
 });
