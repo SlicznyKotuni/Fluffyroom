@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const initializeGallery = (gallery) => {
         // Zniszcz istniejącą instancję, jeśli istnieje
         if (galleryInstances.has(gallery)) {
-            galleryInstances.get(gallery).destroy();
+            galleryInstances.get(gallery).destroy(true);
             galleryInstances.delete(gallery);
         }
 
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Dodaj listener na zamknięcie
             gallery.addEventListener('lgAfterClose', () => {
                 if (galleryInstances.has(gallery)) {
-                    galleryInstances.get(gallery).destroy();
+                    galleryInstances.get(gallery).destroy(true);
                     galleryInstances.delete(gallery);
                     // Reinicjalizuj po krótkim opóźnieniu
                     setTimeout(() => initializeGallery(gallery), 100);
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Cleanup przy zamknięciu strony
     window.addEventListener('beforeunload', () => {
         galleryInstances.forEach((instance) => {
-            instance.destroy();
+            instance.destroy(true);
         });
         galleryInstances.clear();
     });
