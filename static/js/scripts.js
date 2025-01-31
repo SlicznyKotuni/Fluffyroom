@@ -77,20 +77,25 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Inicjalizacja lightgallery dla galerii zdjęć
-    const galleries = document.querySelectorAll('.gallery:not(.slideshow)');
+     const galleries = document.querySelectorAll('.gallery:not(.slideshow)');
     if (typeof lightGallery !== 'undefined') {
         galleries.forEach(gallery => {
-            lightGallery(gallery, {
-                selector: '.gallery-item',
-                plugins: [lgZoom, lgThumbnail],
-                speed: 500,
-                download: false,
-                thumbnail: true,
-                animateThumb: true,
-                zoomFromOrigin: true,
-                allowMediaOverlap: true,
-                toggleThumb: true
-            });
+            // Sprawdź, czy galeria nie została już zainicjalizowana
+            if (!gallery.classList.contains('lg-initialized')) {
+                lightGallery(gallery, {
+                    selector: '.gallery-item',
+                    plugins: [lgZoom, lgThumbnail],
+                    speed: 500,
+                    download: false,
+                    thumbnail: true,
+                    animateThumb: true,
+                    zoomFromOrigin: true,
+                    allowMediaOverlap: true,
+                    toggleThumb: true
+                });
+                // Oznacz galerię jako zainicjalizowaną
+                gallery.classList.add('lg-initialized');
+            }
         });
     }
 });
