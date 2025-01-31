@@ -72,60 +72,55 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ===== LIGHTGALLERY SECTION =====
-    let galleryInstances = new Map();
-
     const initializeGallery = (gallery) => {
+        if (typeof lightGallery === 'undefined') return;
+
         // Zniszcz istniejącą instancję, jeśli istnieje
-        if (galleryInstances.has(gallery)) {
-            galleryInstances.get(gallery).destroy(true);
-            galleryInstances.delete(gallery);
+        if (gallery.lgInstance) {
+            gallery.lgInstance.destroy(true);
         }
 
         // Stwórz nową instancję
-        if (typeof lightGallery !== 'undefined') {
-            const instance = lightGallery(gallery, {
-                selector: '.gallery-item',
-                plugins: [lgZoom, lgThumbnail],
-                speed: 500,
-                download: false,
-                thumbnail: true,
-                animateThumb: true,
-                zoomFromOrigin: true,
-                allowMediaOverlap: true,
-                toggleThumb: true,
-                closeOnTap: true,
-                hideBarsDelay: 3000,
-                addClass: 'lg-custom-gallery',
-                counter: false,
-                mousewheel: true
-            });
+        const instance = lightGallery(gallery, {
+            selector: '.gallery-item',
+            plugins: [lgZoom, lgThumbnail],
+            speed: 500,
+            download: false,
+            thumbnail: true,
+            animateThumb: true,
+            zoomFromOrigin: true,
+            allowMediaOverlap: true,
+            toggleThumb: true,
+            closeOnTap: true,
+            hideBarsDelay: 3000,
+            addClass: 'lg-custom-gallery',
+            counter: false,
+            mousewheel: true,
+            // Dodaj dodatkowe opcje, jeśli potrzebujesz
+        });
 
-            // Zapisz instancję w Map
-            galleryInstances.set(gallery, instance);
+        // Zapisz instancję w elemencie galerii
+        gallery.lgInstance = instance;
 
-            // Dodaj listener na zamknięcie
-            gallery.addEventListener('lgAfterClose', () => {
-                if (galleryInstances.has(gallery)) {
-                    galleryInstances.get(gallery).destroy(true);
-                    galleryInstances.delete(gallery);
-                    // Reinicjalizuj po krótkim opóźnieniu
-                    setTimeout(() => initializeGallery(gallery), 100);
-                }
-            });
-        }
+        // Dodaj listener na zamknięcie
+        gallery.addEventListener('lgAfterClose', () => {
+            if (gallery.lgInstance) {
+                gallery.lgInstance.destroy(true);
+                gallery.lgInstance = null; // Upewnij się, że instancja jest zniszczona
+            }
+        });
     };
 
     // Inicjalizacja wszystkich galerii
     const galleries = document.querySelectorAll('.gallery:not(.slideshow)');
-    galleries.forEach(gallery => {
-        initializeGallery(gallery);
-    });
+    galleries.forEach(gallery => initializeGallery(gallery));
 
     // Cleanup przy zamknięciu strony
     window.addEventListener('beforeunload', () => {
-        galleryInstances.forEach((instance) => {
-            instance.destroy(true);
+        galleries.forEach(gallery => {
+            if (gallery.lgInstance) {
+                gallery.lgInstance.destroy(true);
+            }
         });
-        galleryInstances.clear();
     });
 });
