@@ -1,13 +1,23 @@
-<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/lightgallery.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.4.0/css/lightgallery.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/zoom/lg-zoom.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery.min.css">
 
 <script>
-  // Inicjalizacja Lightbox dla galerii
-  document.addEventListener('DOMContentLoaded', () => {
-    lightGallery(document.querySelector('.gallery'), {
-      selector: '.gallery-item',
-      download: false,
-      thumbnail: true
+document.addEventListener('DOMContentLoaded', () => {
+    const galleries = document.querySelectorAll('.gallery');
+    galleries.forEach(gallery => {
+        lightGallery(gallery, {
+            selector: '.gallery-item',
+            plugins: [lgZoom, lgThumbnail],
+            speed: 500,
+            download: false,
+            thumbnail: true,
+            animateThumb: true,
+            zoomFromOrigin: true,
+            allowMediaOverlap: true,
+            toggleThumb: true
+        });
     });
-  });
+});
 </script>

@@ -117,6 +117,9 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     background: #fff;
+    display: block; /* Ważne dla linków */
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .gallery-item img {
@@ -125,6 +128,7 @@ body {
     object-fit: cover;
     border-radius: 8px;
     transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+    display: block; /* Ważne dla obrazków */
 }
 
 .gallery-item:hover img {

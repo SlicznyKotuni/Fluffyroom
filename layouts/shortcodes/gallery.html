@@ -1,7 +1,11 @@
 <div class="gallery">
     {{ range .Page.Resources.ByType "image" }}
-        <div class="gallery-item">
-            <img src="{{ .RelPermalink }}" alt="{{ .Name }}" loading="lazy">
-        </div>
+        <a class="gallery-item" 
+           href="{{ .RelPermalink }}" 
+           data-lightbox="gallery">
+            <img src="{{ .RelPermalink }}" 
+                 alt="{{ .Title }}" 
+                 loading="lazy">
+        </a>
     {{ end }}
 </div>
