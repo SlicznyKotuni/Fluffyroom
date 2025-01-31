@@ -2,25 +2,24 @@
   <div class="category-page">
     <h1>{{ .Title }}</h1>
     {{ if or (eq .Section "fluffyroom") (eq .Section "kotuni") }}
-      <div class="albums-grid">
-        {{ $section := .Section }}
-        {{ if (fileExists (printf "content/%s/images" $section)) }}
-          <div class="gallery">
-            {{ range (readDir (printf "content/%s/images" $section)) }}
-              {{ $imgURL := printf "/%s/images/%s" $section .Name }}
-              <a class="gallery-item" 
-                 href="{{ $imgURL }}" 
-                 data-lightbox="gallery">
-                <img src="{{ $imgURL }}" 
-                     alt="{{ .Name }}" 
-                     loading="lazy">
-              </a>
-            {{ end }}
-          </div>
-        {{ else }}
-          <p>Brak zdjęć w tej galerii</p>
-        {{ end }}
-      </div>
+      {{ $section := .Section }}
+      {{ if (fileExists (printf "content/%s/images" $section)) }}
+        <div class="gallery" id="gallery-{{ $section }}">
+          {{ range (readDir (printf "content/%s/images" $section)) }}
+            {{ $imgURL := printf "/%s/images/%s" $section .Name }}
+            <a class="gallery-item" 
+               href="{{ $imgURL }}"
+               data-src="{{ $imgURL }}"
+               data-sub-html="<h4>{{ .Name }}</h4>">
+              <img src="{{ $imgURL }}" 
+                   alt="{{ .Name }}"
+                   loading="lazy">
+            </a>
+          {{ end }}
+        </div>
+      {{ else }}
+        <p>Brak zdjęć w tej galerii</p>
+      {{ end }}
     {{ else }}
       <div class="regular-list">
         {{ range .Pages }}
