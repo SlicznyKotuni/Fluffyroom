@@ -6,12 +6,16 @@
         {{ $section := .Section }}
         {{ if (fileExists (printf "content/%s/images" $section)) }}
           {{ $images := readDir (printf "content/%s/images" $section) }}
-          {{ range $images }}
-            <div class="album-card">
-              <img src="/{{ $section }}/images/{{ .Name }}" alt="{{ .Name }}" loading="lazy">
-              <h2>{{ .Name | replaceRE "\\..*$" "" | humanize }}</h2>
-            </div>
-          {{ end }}
+          <div class="gallery">  <!-- Dodajemy kontener galerii -->
+            {{ range $images }}
+              <div class="gallery-item">
+                <a href="/{{ $section }}/images/{{ .Name }}" data-lg-size="1600-2400" data-lg-src="/{{ $section }}/images/{{ .Name }}">
+                  <img src="/{{ $section }}/images/{{ .Name }}" alt="{{ .Name }}" loading="lazy">
+                </a>
+                <h2>{{ .Name | replaceRE "\\..*$" "" | humanize }}</h2>
+              </div>
+            {{ end }}
+          </div>
         {{ else }}
           <p>Brak zdjęć w tej galerii</p>
         {{ end }}
