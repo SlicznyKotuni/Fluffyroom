@@ -2,11 +2,11 @@
   <div class="category-page">
     <h1>{{ .Title }}</h1>
     {{ if or (eq .Section "fluffyroom") (eq .Section "kotuni") }}
-      <div class="albums-grid">
+      <div class="albums-grid"> <!-- Kontener dla albumów -->
         {{ $section := .Section }}
         {{ if (fileExists (printf "content/%s/images" $section)) }}
           {{ $images := readDir (printf "content/%s/images" $section) }}
-          <div class="gallery">  <!-- Dodajemy kontener galerii -->
+          <div class="gallery"> <!-- Kontener galerii -->
             {{ range $images }}
               <div class="gallery-item">
                 <a href="/{{ $section }}/images/{{ .Name }}" data-lg-size="1600-2400" data-lg-src="/{{ $section }}/images/{{ .Name }}">
