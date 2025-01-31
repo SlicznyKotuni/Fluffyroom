@@ -71,6 +71,45 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     });
 
+function initPortraitSlideshow() {
+    const slides = document.querySelectorAll('.portrait-slide');
+    if (slides.length === 0) return;
+
+    // Pokaż pierwsze zdjęcie na start
+    let currentSlide = 0;
+    slides[0].classList.add('active');
+
+    // Funkcja do losowego wyboru następnego zdjęcia
+    const getNextSlide = (current) => {
+        let next;
+        do {
+            next = Math.floor(Math.random() * slides.length);
+        } while (next === current && slides.length > 1);
+        return next;
+    };
+
+    // Zmiana zdjęć z efektem crossfade
+    setInterval(() => {
+        const nextSlide = getNextSlide(currentSlide);
+        
+        // Wygaszanie aktualnego zdjęcia
+        slides[currentSlide].classList.remove('active');
+        
+        // Pokazywanie następnego
+        slides[nextSlide].classList.add('active');
+        
+        currentSlide = nextSlide;
+    }, 4000); // Zmiana co 4 sekundy
+}
+
+// Dodaj wywołanie funkcji do istniejącego event listenera DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function() {
+    // ... (istniejący kod) ...
+    
+
+    
+    initPortraitSlideshow();
+});
     // ===== LIGHTGALLERY SECTION =====
     const initializeGallery = (gallery) => {
         if (typeof lightGallery === 'undefined') return;
